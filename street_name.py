@@ -3,16 +3,21 @@
 
 import sqlite3
 
-print sqlite3.sqlite_version
+#print sqlite3.sqlite_version
 
 def main( ):
     db = None
     try:
         db = sqlite3.connect( 't/knocksheets.sqlite' )
         cursor = db.cursor( )
-        cursor.execute( 'SELECT SQLITE_VERSION( )' )
-        data = cursor.fetchone( )
-        print "SQLite version: %s" % data
+
+        print 'Creating schema'
+        with open( 'HE.ddl', 'rt' ) as fileDDL:
+            schema = fileDDL.read()
+        db.executescript(schema)
+
+        db.commit()
+
 
     except Exception as e:
         print "Error %s:" % e.args[ 0 ]
