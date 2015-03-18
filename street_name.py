@@ -42,6 +42,10 @@ def main( ):
             ]
             cursor.execute( "INSERT INTO HE (polling_district, elector_number, status, title, first_names, initials, surname, suffix, date_attainment, f_franchise, address_1, address_2, address_3, address_4, address_5, address_6, address_7, f_opt_out ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? );", to_db )
 
+        print 'Altering TABLE';
+        cursor.execute( "ALTER TABLE {tn} ADD COLUMN '{cn}' {ct}"\
+            .format( tn='HE', cn='street_name', ct='TEXT' ))
+
         print 'Committing result'
         db.commit()
 
