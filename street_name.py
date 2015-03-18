@@ -46,6 +46,15 @@ def main( ):
         cursor.execute( "ALTER TABLE {tn} ADD COLUMN '{cn}' {ct}"\
             .format( tn='HE', cn='street_name', ct='TEXT' ))
 
+        cursor.execute( 'SELECT rowid,address_1,address_2,address_3,address_4,address_5,address_6,address_7 FROM HE' )
+        while True:
+            row = cursor.fetchone( )
+            if row == None:
+                break
+            print row
+            for i, col in reversed( list( enumerate( row ) ) ):
+                print "[",i,"] " , col
+
         print 'Committing result'
         db.commit()
 
