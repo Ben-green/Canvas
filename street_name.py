@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # vim: tabstop=4 softtabstop=4 shiftwidth=4 smarttab expandtab:
 
+import re
 import csv
 import sqlite3
 
@@ -47,13 +48,37 @@ def main( ):
             .format( tn='HE', cn='street_name', ct='TEXT' ))
 
         cursor.execute( 'SELECT rowid,address_1,address_2,address_3,address_4,address_5,address_6,address_7 FROM HE' )
-        while True:
-            row = cursor.fetchone( )
-            if row == None:
-                break
-            print row
+        #print cursor.rowcount
+        for row in cursor.fetchall( ):
+            #print row
+            textStreetName = None
             for i, col in reversed( list( enumerate( row ) ) ):
-                print "[",i,"] " , col
+                if i == 0:
+                    if textStreetName is None:
+                        textStreetName = 'GROPE CUNT LANE'
+                    cursor.execute( "UPDATE HE SET street_name='{street_name}' WHERE rowid={rowid}"\
+                            .format( street_name=textStreetName, rowid=col ) )
+                    continue
+                #print "[",i,"] " , col
+                if textStreetName is None:
+                    # Try to get street name from this column
+                    if col == '':
+                        #print " [", i, "] empty"
+                        continue
+                    if re.match( '[A-Z]*[0-9]* [0-9]*[A-Z]*$', col ):
+                        #print " [", i, "] Post Code"
+                        continue
+                    if re.match( '[A-Z]*$', col ):
+                        #print " [", i, "] City"
+                        continue
+                    match = re.search( '[A-Z]* [A-Z]*$', col )
+                    if match:
+                        textStreetName = match.group( 0 )
+                        #print " [", i, "] Street: '%s'" % textStreetName
+                        continue
+                    else:
+                        print " [", i, "] No match for: '%s'" % col
+                        continue
 
         print 'Committing result'
         db.commit()
