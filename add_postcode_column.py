@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # vim: tabstop=4 softtabstop=4 shiftwidth=4 smarttab expandtab:
 
+import sys
 import re
 
 rePostcode = '[A-Z]{1,2}[0-9]{1,2} [0-9]{1,2}[A-Z]{2}'
@@ -22,3 +23,8 @@ class AddPostcodeColumn( object ):
                 if( match ):
                     rowOut += match.group( 0 )
         return rowOut
+
+if( __name__ == "__main__" ):
+    apc = AddPostcodeColumn( )
+    for line in sys.stdin:
+        print apc.AppendToRow( line.rstrip( ) )
