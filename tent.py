@@ -124,3 +124,11 @@ def CreateTable( ):
     cursor.execute( "DROP TABLE IF EXISTS %r" % ( naTable ) )
     for column in listHeadings:
         print "%r TEXT," % ( column )
+
+def MakeColumnSpecifications( ):
+    s = ''
+    for column in listHeadings:
+        s = s + ' "' + column + '"' + " TEXT,\n"
+
+    # Now trim trailing comma
+    return s.rstrip( ",\n" )
