@@ -80,35 +80,34 @@ def importcsvfile ( csvfile, db ):    #import a csv file called 'csvfile' into a
 def HeadingsFromCSV( ):
     global naFileCSV, iRowHeadings, listHeadings
 
-    # rb : means read, with binary mode ( see https://docs.python.org/2/library/csv.html#module-contents )
-    # delimiter : ',' tells the reader to separate fields with commas
-    with open( naFileCSV, 'rb' ) as f:
-        filereader = csv.reader( f, delimiter=',' )
-
     # count of lines read, we will stop at 10
     cRow = 0
 
     # Note how many filled COLUMNs in the most filled-in ROW
     cbestFilledFields = 0
 
-    for fdsa in filereader:
-        cRow = cRow+1
-        if cRow > 9:
-            break
-
-        # Note how many filled COLUMNs in ROW cRow
-        cFilledFields = 0
-        for column in fdsa:
-            if column == '':
+    # rb : means read, with binary mode ( see https://docs.python.org/2/library/csv.html#module-contents )
+    # delimiter : ',' tells the reader to separate fields with commas
+    with open( naFileCSV, 'rb' ) as f:
+        filereader = csv.reader( f, delimiter=',' )
+        for fdsa in filereader:
+            cRow = cRow+1
+            if cRow > 9:
                 break
-            else:
-                cFilledFields = cFilledFields + 1
 
-        # If the ROW is more filled in than the current best, then record it
-        if  cFilledFields > cbestFilledFields:
-            cbestFilledFields = cFilledFields
-            iRow = cRow
-            rowHeadings = fdsa
+            # Note how many filled COLUMNs in ROW cRow
+            cFilledFields = 0
+            for column in fdsa:
+                if column == '':
+                    break
+                else:
+                    cFilledFields = cFilledFields + 1
+
+            # If the ROW is more filled in than the current best, then record it
+            if  cFilledFields > cbestFilledFields:
+                cbestFilledFields = cFilledFields
+                iRow = cRow
+                rowHeadings = fdsa
 
     iRowHeadings = iRow
     listHeadings = rowHeadings
