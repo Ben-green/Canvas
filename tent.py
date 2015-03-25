@@ -17,9 +17,10 @@ naDataBase = ''
 naTable = ''
 iRowHeadings = 1
 listHeadings = []
+cursor = None
 
 def importcsvfile ( csvfile, db ):    #import a csv file called 'csvfile' into an SQlite database called db.
-    global naFileCSV, naDataBase, naTable
+    global naFileCSV, naDataBase, naTable, cursor
     naFileCSV = csvfile
     naDataBase = db
     naTable = os.path.splitext( basename( naFileCSV ) )[0]
@@ -28,10 +29,15 @@ def importcsvfile ( csvfile, db ):    #import a csv file called 'csvfile' into a
     print "%r: Found %r COLUMN headings in row %r" % ( naFileCSV, len( listHeadings ), iRowHeadings )
     print listHeadings
 
+    with sqlite3.connect( naDataBase ) as conn:
+        cursor = conn.cursor()
+        CreateTable( )
+
+        # We explicitly commit
+        conn.commit()
+
     return
-    conn = sqlite3.connect(db)
-    cur = conn.cursor()
-    filereader = csv.reader( open(csvfile, 'rt'), delimiter=',') 
+    filereader = csv.reader( open(csvfile, 'rt'), delimiter=',')
     c=0
     for something in filereader:
         c=c+1
@@ -111,3 +117,10 @@ def HeadingsFromCSV( ):
 
     iRowHeadings = iRow
     listHeadings = rowHeadings
+
+def CreateTable( ):
+    global cursor, listHeadings, naTable
+
+    cursor.execute( "DROP TABLE IF EXISTS %r" % ( naTable ) )
+    for column in listHeadings:
+        print "%r TEXT," % ( column )
