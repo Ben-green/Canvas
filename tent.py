@@ -40,13 +40,39 @@ def importcsvfile (csvfile,db):    #import a csv file called 'csvfile' into an S
 
     conn = sqlite3.connect(db)
     cur = conn.cursor()
-    filereader = csv.reader( open(csvfile, 'rt'), delimiter=',') #
+    filereader = csv.reader( open(csvfile, 'rt'), delimiter=',') 
     c=0
     for something in filereader:
         c=c+1
         if c == biggestrow:
-            print "trying with row %r as headings" % (c) 
-            cur.execute("drop table if exists %r;" % (csvfile))       
-            cur.execute("create table %r(%r);" % (csvfile,something))      
-    print "This will now create table %s, in database %s" % (csvfile,db)
-    print "it's just a pain it's not bloody understood the comma"
+            cur.execute("drop table if exists dummytable;" )       
+            cur.execute("create table dummytable(datanumber);" )
+            print "Making table dummytable with the below headings)"        
+            columns = biggestHead
+            headingsforever = something
+            for a in something:
+                print a
+                cur.execute("alter table dummytable add column %r;" % (a))
+                if columns == 0:
+                    break
+                else:
+                    
+                    columns = columns - 1
+                 
+            
+    print "finished making table, adding data, assuming no data above Headings"
+    filereader = csv.reader( open(csvfile, 'rt'), delimiter=',') 
+    line = 0
+    for something in filereader:
+        line = line +1
+        columns = biggestHead +1
+        headingstouse = headingsforever
+        if line > biggestrow:
+            print "now I am on line %s and need to add the below into one of %s columns" % (line, columns)
+            print headingstouse           
+            print something
+            for a in something:
+                print a
+                
+        else:
+                print "checking next line"
