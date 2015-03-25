@@ -2,7 +2,7 @@
 # vim: tabstop=4 softtabstop=4 shiftwidth=4 smarttab expandtab:
 
 __author__      = "Joe Salmon"
-__copyright__   = "Copyright 2015"
+__copyright__   = "Copyright (c) 2015, The Green Party UK"
 
 from sys import argv
 import sqlite3
