@@ -133,3 +133,9 @@ def MakeColumnSpecifications( ):
 
 def InsertData( ):
     global naFileCSV, iRowHeadings
+
+    with open( naFileCSV, 'rb' ) as f:
+        filereader = csv.reader( f, delimiter=',' )
+        for unused in range( iRowHeadings ):
+            print "Skipping %r of %r" % ( unused, iRowHeadings )
+            filereader.next( )
