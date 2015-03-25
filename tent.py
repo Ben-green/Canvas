@@ -9,8 +9,19 @@ import sqlite3
 import csv
 import re
 
-def importcsvfile (csvfile,db):    #import a csv file called 'csvfile' into an SQlite database called db.
-    rowHeadings = HeadingsFromCSV( csvfile )
+# global variables
+naFileCSV = ''
+naDataBase = ''
+naTable = ''
+iRowHeadings = 1
+listHeadings = []
+
+def importcsvfile ( csvfile, db ):    #import a csv file called 'csvfile' into an SQlite database called db.
+    global naFileCSV, naDataBase
+    naFileCSV = csvfile
+
+    naDataBase = db
+    rowHeadings = HeadingsFromCSV( )
     return
     conn = sqlite3.connect(db)
     cur = conn.cursor()
@@ -60,10 +71,12 @@ def importcsvfile (csvfile,db):    #import a csv file called 'csvfile' into an S
     #do not ommit this line, without it data would be thrown away.            
     conn.commit()
 
-def HeadingsFromCSV( naFile ):
+def HeadingsFromCSV( ):
+    global naFileCSV
+
     # rb : means read, with binary mode ( see https://docs.python.org/2/library/csv.html#module-contents )
     # delimiter : ',' tells the reader to separate fields with commas
-    filereader = csv.reader( open( naFile, 'rb' ), delimiter=',' )
+    filereader = csv.reader( open( naFileCSV, 'rb' ), delimiter=',' )
 
     # count of lines read, we will stop at 10
     cRow = 0
@@ -90,6 +103,6 @@ def HeadingsFromCSV( naFile ):
             iRow = cRow
             rowHeadings = fdsa
 
-    print "%r: Found %r COLUMN headings in row %r" % ( naFile, cbestFilledFields, iRow )
+    print "%r: Found %r COLUMN headings in row %r" % ( naFileCSV, cbestFilledFields, iRow )
     print rowHeadings
     return rowHeadings
