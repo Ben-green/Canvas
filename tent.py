@@ -26,8 +26,6 @@ def importcsvfile ( csvfile, db ):    #import a csv file called 'csvfile' into a
     naTable = os.path.splitext( basename( naFileCSV ) )[0]
 
     HeadingsFromCSV( )
-    print "%r: Found %r COLUMN headings in row %r" % ( naFileCSV, len( listHeadings ), iRowHeadings )
-    print listHeadings
 
     with sqlite3.connect( naDataBase ) as conn:
         cursor = conn.cursor()
