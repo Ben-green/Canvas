@@ -119,11 +119,10 @@ def HeadingsFromCSV( ):
     listHeadings = rowHeadings
 
 def CreateTable( ):
-    global cursor, listHeadings, naTable
+    global cursor, naTable
 
     cursor.execute( "DROP TABLE IF EXISTS %r" % ( naTable ) )
-    for column in listHeadings:
-        print "%r TEXT," % ( column )
+    cursor.execute( "CREATE TABLE %r(\n%s\n)" % ( naTable, MakeColumnSpecifications( ) ) )
 
 def MakeColumnSpecifications( ):
     s = ''
