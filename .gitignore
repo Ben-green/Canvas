@@ -2,9 +2,13 @@
 *.pyc
 t/
 141201/
+tags
 
 # Unversioned files go here
 attic/
 
 # Also unversioned
 To Do
+
+# Temporary files
+work/
