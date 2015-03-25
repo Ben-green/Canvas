@@ -10,31 +10,8 @@ import csv
 import re
 
 def importcsvfile (csvfile,db):    #import a csv file called 'csvfile' into an SQlite database called db.
-    filereader = csv.reader( open(csvfile, 'rt'), delimiter=',') #rt means read text, delimiter tells it we'll use commas.
-
-    # count of lines read, we will stop at 10
-    c = 0
-
-    # Note how many filled COLUMNs in the most filled-in ROW
-    biggestHead = 0
-
-    for fdsa in filereader:
-        c = c+1
-        if c > 9:
-            break
-
-        # Note how many filled COLUMNs in ROW c
-        posHead = 0
-        for column in fdsa:
-            if column == '':
-                break
-            else:
-                posHead = posHead + 1
-
-        # If the ROW is more filled in than the current best, then record it
-        if posHead > biggestHead:
-            biggestHead = posHead
-            biggestrow = c
+    rowHeadings = HeadingsFromCSV( csvfile )
+    return
     conn = sqlite3.connect(db)
     cur = conn.cursor()
     filereader = csv.reader( open(csvfile, 'rt'), delimiter=',') 
@@ -82,3 +59,37 @@ def importcsvfile (csvfile,db):    #import a csv file called 'csvfile' into an S
                 
     #do not ommit this line, without it data would be thrown away.            
     conn.commit()
+
+def HeadingsFromCSV( naFile ):
+    # rb : means read, with binary mode ( see https://docs.python.org/2/library/csv.html#module-contents )
+    # delimiter : ',' tells the reader to separate fields with commas
+    filereader = csv.reader( open( naFile, 'rb' ), delimiter=',' )
+
+    # count of lines read, we will stop at 10
+    cRow = 0
+
+    # Note how many filled COLUMNs in the most filled-in ROW
+    cbestFilledFields = 0
+
+    for fdsa in filereader:
+        cRow = cRow+1
+        if cRow > 9:
+            break
+
+        # Note how many filled COLUMNs in ROW cRow
+        cFilledFields = 0
+        for column in fdsa:
+            if column == '':
+                break
+            else:
+                cFilledFields = cFilledFields + 1
+
+        # If the ROW is more filled in than the current best, then record it
+        if  cFilledFields > cbestFilledFields:
+            cbestFilledFields = cFilledFields
+            iRow = cRow
+            rowHeadings = fdsa
+
+    print "%r: Found %r COLUMN headings in row %r" % ( naFile, cbestFilledFields, iRow )
+    print rowHeadings
+    return rowHeadings
