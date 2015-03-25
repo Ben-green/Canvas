@@ -8,6 +8,8 @@ from sys import argv
 import sqlite3
 import csv
 import re
+import os
+from os.path import basename
 
 # global variables
 naFileCSV = ''
@@ -17,9 +19,10 @@ iRowHeadings = 1
 listHeadings = []
 
 def importcsvfile ( csvfile, db ):    #import a csv file called 'csvfile' into an SQlite database called db.
-    global naFileCSV, naDataBase
+    global naFileCSV, naDataBase, naTable
     naFileCSV = csvfile
     naDataBase = db
+    naTable = os.path.splitext( basename( naFileCSV ) )[0]
 
     HeadingsFromCSV( )
     print "%r: Found %r COLUMN headings in row %r" % ( naFileCSV, len( listHeadings ), iRowHeadings )
@@ -79,7 +82,8 @@ def HeadingsFromCSV( ):
 
     # rb : means read, with binary mode ( see https://docs.python.org/2/library/csv.html#module-contents )
     # delimiter : ',' tells the reader to separate fields with commas
-    filereader = csv.reader( open( naFileCSV, 'rb' ), delimiter=',' )
+    with open( naFileCSV, 'rb' ) as f:
+        filereader = csv.reader( f, delimiter=',' )
 
     # count of lines read, we will stop at 10
     cRow = 0
