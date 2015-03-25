@@ -30,6 +30,7 @@ def importcsvfile ( csvfile, db ):    #import a csv file called 'csvfile' into a
     with sqlite3.connect( naDataBase ) as conn:
         cursor = conn.cursor()
         CreateTable( )
+        InsertData( )
 
         # We explicitly commit
         conn.commit()
@@ -129,3 +130,6 @@ def MakeColumnSpecifications( ):
 
     # Now trim trailing comma
     return s.rstrip( ",\n" )
+
+def InsertData( ):
+    global naFileCSV, iRowHeadings
