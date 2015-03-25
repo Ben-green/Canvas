@@ -7,14 +7,9 @@ __author__      = "Joe Salmon"
 __copyright__   = "Copyright 2015, Planet Earth"
 
 import tent
-import sqlite3
 
-filenamedb = 'something.db'
-
-conn = sqlite3.connect(filenamedb)
+#conn = sqlite3.connect(filenamedb)
 # This tells python to start typing in the running sqlite3 program.
-cur = conn.cursor()
+#cur = conn.cursor()
 
-
-thingy = 'work/councilfull.csv'
-tent.importcsvfile (thingy,filenamedb)
+tent.importcsvfile ( 'work/councilfull.csv', 'work/something.db' )
