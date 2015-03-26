@@ -132,10 +132,15 @@ def MakeColumnSpecifications( ):
     return s.rstrip( ",\n" )
 
 def InsertData( ):
-    global naFileCSV, iRowHeadings
+    global naFileCSV, naTable, iRowHeadings
 
     with open( naFileCSV, 'rb' ) as f:
         filereader = csv.reader( f, delimiter=',' )
         for unused in range( iRowHeadings ):
             print "Skipping %r of %r" % ( unused, iRowHeadings )
             filereader.next( )
+
+        for row in filereader:
+            # must use single quotation marks
+            sql = "INSERT INTO %r VALUES( '%s' )" % ( naTable, "', '".join( row ) )
+            cursor.execute( sql )
