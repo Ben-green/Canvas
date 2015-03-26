@@ -140,7 +140,15 @@ def InsertData( ):
             print "Skipping %r of %r" % ( unused, iRowHeadings )
             filereader.next( )
 
-        for row in filereader:
-            # must use single quotation marks
-            sql = "INSERT INTO %r VALUES( '%s' )" % ( naTable, "', '".join( row ) )
-            cursor.execute( sql )
+        try:
+            for row in filereader:
+                # must use single quotation marks
+                sql = "INSERT INTO %r VALUES( '%s' )" % ( naTable, "', '".join( row ) )
+                cursor.execute( sql )
+
+        except Exception as e:
+            print e
+            print row
+            #cursor.execute( "DROP TABLE IF EXISTS %r" % ( naTable ) )
+
+
