@@ -142,8 +142,10 @@ def InsertData( ):
 
         try:
             for row in filereader:
+                strRow = "', '".join( row )
                 # must use single quotation marks
-                sql = "INSERT INTO %r VALUES( '%s' )" % ( naTable, "', '".join( row ) )
+                strRow = re.sub( r"( ?'[^,']*)'([^,']*',?)", r"\1'' \2", strRow )
+                sql = "INSERT INTO %r VALUES( '%s' )" % ( naTable, strRow )
                 cursor.execute( sql )
 
         except Exception as e:
