@@ -35,53 +35,6 @@ def importcsvfile ( csvfile, db ):    #import a csv file called 'csvfile' into a
         # We explicitly commit
         conn.commit()
 
-    return
-    filereader = csv.reader( open(csvfile, 'rt'), delimiter=',')
-    c=0
-    for something in filereader:
-        c=c+1
-        if c == biggestrow:
-            cur.execute("drop table if exists dummytable;" )       
-            cur.execute("create table dummytable(datanumber);" )
-            columns = biggestHead
-            headingsforever = something
-            for a in something:
-                cur.execute("alter table dummytable add column %r;" % (a))
-                if columns == 0:
-                    break
-                else:
-                    
-                    columns = columns - 1
-                 
-            
-    print "finished checking first tent lines, assuming no data above Headings"
-    print "will assume correct headings are %s" % (headingsforever)
-
-    filereader = csv.reader( open(csvfile, 'rt'), delimiter=',') 
-    line = 0
-    for something in filereader:
-        line = line +1
-        columns = biggestHead +1
-        headingstouse = headingsforever
-        if line > biggestrow:
-            print "now I am on line %s and need to add the below into one of %s columns" % (line, columns)
-            #This makes the data into strings.
-            strHeaders = "'" + "','".join( headingstouse ) + "'"
-            print strHeaders
-            strSomething = "'" + "','".join( something ) + "'"
-            sql = "INSERT INTO dummytable (%s) VALUES( %s )" % ( strHeaders, strSomething )
-            print sql
-            cur.execute(sql)
-                
-        else:
-                print "not adding this line"
-                
-                 
-                
-                
-    #do not ommit this line, without it data would be thrown away.            
-    conn.commit()
-
 def HeadingsFromCSV( ):
     global naFileCSV, iRowHeadings, listHeadings
 
