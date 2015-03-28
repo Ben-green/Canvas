@@ -16,7 +16,7 @@ def Wards(n):
 
 def CreateUpToDateRegister( inDatabase ):
     for ward in Wards( 29 ):
-        print "DROP TABLE IF EXISTS %s" % ( ward )
+        print "DROP TABLE IF EXISTS %s;" % ( ward )
     # Joe's good stuff goes here
 
 naDatabase = sys.argv[ 1 ]
