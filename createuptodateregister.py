@@ -9,9 +9,9 @@ __copyright__   = "Copyright 2015, The Green Party UK"
 import sys
 
 def Wards(n):
-    i = 0
-    while i < n:
-        yield "Ward%02d" % ( i )
+    i = 1      # Start with 'ward01'
+    while i <= n:
+        yield "ward%02d" % ( i )
         i += 1
 
 def CreateUpToDateRegister( inDatabase ):
