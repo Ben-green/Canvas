@@ -8,20 +8,23 @@ __copyright__   = "Copyright 2015, The Green Party UK"
 
 import sys
 
-def Wards(n):
-    i = 1      # Start with 'ward01'
-    while i <= n:
-        yield "ward%02d" % ( i )
-        i += 1
+class createuptodateregister( object ):
+    def Wards( self, n ):
+        i = 1      # Start with 'ward01'
+        while i <= n:
+            yield "ward%02d" % ( i )
+            i += 1
 
-def CreateUpToDateRegister( inDatabase ):
-    for ward in Wards( 29 ):
-        print "DROP TABLE IF EXISTS %s;" % ( ward )
-    # Joe's good stuff goes here
+    def CreateUpToDateRegister( self, inDatabase ):
+        for ward in self.Wards( 29 ):
+            print "DROP TABLE IF EXISTS %s;" % ( ward )
+        # Joe's good stuff goes here
 
-naDatabase = sys.argv[ 1 ]
-CreateUpToDateRegister( naDatabase)
-print "All done"
+if( __name__ == "__main__" ):
+    #from createuptodateregister import CreateUpToDateRegister
+    naDatabase = sys.argv[ 1 ]
+    createuptodateregister().CreateUpToDateRegister( naDatabase)
+    print "All done"
 
 
 
