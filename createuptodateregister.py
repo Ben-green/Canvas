@@ -58,6 +58,8 @@ class createuptodateregister( object ):
         for ward in self.Wards( 29 ):
             print( "DROP TABLE IF EXISTS %s;" % ( ward ), file=sys.stdout )
         print( "\n.mode csv", file=sys.stdout )
+        for i,strWard in enumerate( self.ListOfWards( ) ):
+            print( ".import P141201_%s.csv ward%02d" % ( strWard, i + 1 ), file=sys.stdout )
         # Joe's good stuff goes here
 
 if( __name__ == "__main__" ):
