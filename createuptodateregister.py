@@ -10,7 +10,43 @@ __copyright__   = "Copyright 2015, The Green Party UK"
 
 import sys
 
+listWards = [
+        "Adel_and_Wharfedale",
+        "Alwoodley",
+        "Ardsley_and_Robin_Hood",
+        "Beeston_and_Holbeck",
+        "Burmantofts_and_Richmond_Hill",
+        "Calverley_and_Farsley",
+        "Chapel_Allerton",
+        "City_and_Hunslet",
+        "Cross_Gates_and_Whinmoor",
+        "Garforth_and_Swillington",
+        "Gipton_and_Harehills",
+        "Guiseley_and_Rawdon",
+        "Harewood",
+        "Headingley",
+        "Horsforth",
+        "Hyde_Pary_and_Woodhouse",
+        "Killingbeck_and_Secroft",
+        "Kippax_and_Methley",
+        "Middleton_Park",
+        "Moortown",
+        "Morley_North",
+        "Morley_South",
+        "Otley_and_Yeadon",
+        "Pudsey",
+        "Rothwell",
+        "Roundhay",
+        "Temple_Newsam",
+        "Weetwood",
+        "Wetherby"
+        ]
+
 class createuptodateregister( object ):
+    def ListOfWards( self ):
+        for strWard in listWards:
+            yield strWard
+
     def Wards( self, n ):
         i = 1      # Start with 'ward01'
         while i <= n:
