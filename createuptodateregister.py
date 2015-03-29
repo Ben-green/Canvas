@@ -15,13 +15,13 @@ class createuptodateregister( object ):
             yield "ward%02d" % ( i )
             i += 1
 
+    # FIXME Make this a static method?
     def CreateUpToDateRegister( self, inDatabase ):
         for ward in self.Wards( 29 ):
             print "DROP TABLE IF EXISTS %s;" % ( ward )
         # Joe's good stuff goes here
 
 if( __name__ == "__main__" ):
-    #from createuptodateregister import CreateUpToDateRegister
     naDatabase = sys.argv[ 1 ]
     createuptodateregister().CreateUpToDateRegister( naDatabase)
     print "All done"
