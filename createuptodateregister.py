@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # vim: tabstop=4 softtabstop=4 shiftwidth=4 smarttab expandtab:
 
+from __future__ import print_function
+
 """createuptodateregister.py: Does nothing of any use to anyone."""
 
 __author__      = "Joe Salmon"
@@ -18,13 +20,13 @@ class createuptodateregister( object ):
     # FIXME Make this a static method?
     def CreateUpToDateRegister( self, inDatabase ):
         for ward in self.Wards( 29 ):
-            print "DROP TABLE IF EXISTS %s;" % ( ward )
+            print( "DROP TABLE IF EXISTS %s;" % ( ward ), file=sys.stdout )
         # Joe's good stuff goes here
 
 if( __name__ == "__main__" ):
     naDatabase = sys.argv[ 1 ]
     createuptodateregister().CreateUpToDateRegister( naDatabase)
-    print "All done"
+    print( "All done", file=sys.stderr )
 
 
 
