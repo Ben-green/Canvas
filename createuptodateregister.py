@@ -79,6 +79,11 @@ class createuptodateregister( object ):
     def CommandDropTable( self, strTable ):
         return "DROP TABLE IF EXISTS %s;" % ( strTable )
 
+    def CommandCreateTable( self, strTable ):
+        return """%s
+CREATE TABLE %s(%s);
+""" % ( self.CommandDropTable( strTable ), strTable, strFields )
+
     # FIXME Make this a static method?
     def CreateUpToDateRegister( self, inDatabase ):
         for ward in self.Wards( 29 ):
