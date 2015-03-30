@@ -109,6 +109,7 @@ CREATE TABLE %s(%s);
         print( "DELETE FROM uptodatecouncildata WHERE rowid NOT IN \n(SELECT MIN(rowid) FROM uptodatecouncildata GROUP BY firstname, surname, address1);", file=sys.stdout )
         print( "\n", file=sys.stdout )
         print( "SELECT * FROM membercouncildata;", file=sys.stdout )
+        print( ".output stdout", file=sys.stdout )
         # Joe's good stuff goes here
 
 if( __name__ == "__main__" ):
