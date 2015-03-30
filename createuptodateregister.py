@@ -103,6 +103,7 @@ CREATE TABLE %s(%s);
         print( "ALTER TABLE toremove ADD COLUMN toremove;", file=sys.stdout )
         print( "UPDATE toremove SET toremove = 'toremove';\n", file=sys.stdout )
         print( self.CommandCreateTable( "removedfulldata", strFields.rstrip( ) + ',\n  "toremove" \n' ) )
+        print( "INSERT INTO removedfulldata (pd, eno, stat, title, firstname, initials, surname, suffix, dateofattainment, franchiseflag, address1, address2, address3, address4, address5, address6, address7, postcode, toremove) SELECT fulldata.pd, fulldata.eno, fulldata.stat, fulldata.title, fulldata.firstname, fulldata.initials, fulldata.surname, fulldata.suffix, fulldata.dateofattainment, fulldata.franchiseflag, fulldata.address1, fulldata.address2, fulldata.address3, fulldata.address4, fulldata.address5, fulldata.address6, fulldata.address7, fulldata.postcode, toremove.toremove \nFROM fulldata LEFT OUTER JOIN toremove ON fulldata.firstname = toremove.firstname AND fulldata.surname = toremove.surname AND fulldata.address1 = toremove.address1;\n", file=sys.stdout )
         # Joe's good stuff goes here
 
 if( __name__ == "__main__" ):
