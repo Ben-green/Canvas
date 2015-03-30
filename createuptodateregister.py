@@ -108,6 +108,7 @@ CREATE TABLE %s(%s);
         print( "INSERT INTO uptodatecouncildata (pd, eno, stat, title, firstname, initials, surname, suffix, dateofattainment, franchiseflag, address1, address2, address3, address4, address5, address6, address7, postcode) SELECT pd, eno, stat, title, firstname, initials, surname, suffix, dateofattainment, franchiseflag, address1, address2, address3, address4, address5, address6, address7, postcode FROM removedfulldata WHERE toremove IS NOT 'toremove';\n", file=sys.stdout )
         print( "DELETE FROM uptodatecouncildata WHERE rowid NOT IN \n(SELECT MIN(rowid) FROM uptodatecouncildata GROUP BY firstname, surname, address1);", file=sys.stdout )
         print( "\n", file=sys.stdout )
+        print( "SELECT * FROM membercouncildata;", file=sys.stdout )
         # Joe's good stuff goes here
 
 if( __name__ == "__main__" ):
