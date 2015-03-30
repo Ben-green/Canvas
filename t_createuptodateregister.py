@@ -20,3 +20,9 @@ class T( unittest.TestCase ):
             self.assertTrue( re.match( '[A-Z][a-zA-Z_]', ward ) )
             iLast = i
         self.assertEqual( iLast, 28 )
+
+    def test_CommandDropTable( self ):
+        c = createuptodateregister( )
+        strTable = "test"
+        str = c.CommandDropTable( strTable )
+        self.assertEqual( str, "DROP TABLE IF EXISTS %s;" % ( strTable )  )
