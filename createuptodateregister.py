@@ -6,18 +6,16 @@
 __author__      = "Joe Salmon"
 __copyright__   = "Copyright 2015, The Green Party UK"
 
-import sys
-
-def Wards(n):
+import importcsvfile
+import sqlite3, csv
+from sys import argv
+        
+def csvregs(n):
     i = 0
     while i < n:
-        yield "Ward%02d" % ( i )
+        yield "rawfile%02d" % ( i ) 
         i += 1
 
-def CreateUpToDateRegister( inDatabase ):
-    for ward in Wards( 29 ):
-        print "DROP TABLE IF EXISTS %s" % ( ward )
-    # Joe's good stuff goes here
 
 naDatabase = sys.argv[ 1 ]
 CreateUpToDateRegister( naDatabase)
