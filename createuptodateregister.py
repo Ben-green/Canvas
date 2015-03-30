@@ -79,10 +79,10 @@ class createuptodateregister( object ):
     def CommandDropTable( self, inTable ):
         return "DROP TABLE IF EXISTS %s;" % ( inTable )
 
-    def CommandCreateTable( self, inTable ):
+    def CommandCreateTable( self, inTable, inFields ):
         return """%s
 CREATE TABLE %s(%s);
-""" % ( self.CommandDropTable( inTable ), inTable, strFields )
+""" % ( self.CommandDropTable( inTable ), inTable, inFields )
 
     # FIXME Make this a static method?
     def CreateUpToDateRegister( self, inDatabase ):
@@ -92,13 +92,13 @@ CREATE TABLE %s(%s);
         for i,strWard in enumerate( self.ListOfWards( ) ):
             print( ".import P141201_%s.csv ward%02d" % ( strWard, i + 1 ), file=sys.stdout )
         print( "\n", file=sys.stdout )
-        print( self.CommandCreateTable( "alldata" ) + "\n", file=sys.stdout )
+        print( self.CommandCreateTable( "alldata", strFields ) + "\n", file=sys.stdout )
         for ward in self.Wards( 29 ):
             print( "INSERT INTO alldata SELECT * FROM %s;" % ( ward ), file=sys.stdout )
         print( "\n", file=sys.stdout )
-        print( self.CommandCreateTable( "fulldata" ) + "\n", file=sys.stdout )
+        print( self.CommandCreateTable( "fulldata", strFields ) + "\n", file=sys.stdout )
         print( "INSERT INTO fulldata SELECT * FROM alldata WHERE stat IS NOT 'D';\n", file=sys.stdout )
-        print( self.CommandCreateTable( "toremove" ) )
+        print( self.CommandCreateTable( "toremove", strFields ) )
         print( "INSERT INTO toremove SELECT * FROM alldata WHERE stat IS 'D';", file=sys.stdout )
         print( "ALTER TABLE toremove ADD COLUMN toremove;", file=sys.stdout )
         print( "UPDATE toremove SET toremove = 'toremove';\n", file=sys.stdout )

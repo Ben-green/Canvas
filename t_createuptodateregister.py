@@ -30,6 +30,7 @@ class T( unittest.TestCase ):
     def test_CommandCreateTable( self ):
         c = createuptodateregister( )
         strTable = "test"
-        str = c.CommandCreateTable( strTable )
+        strFields = '"PD" TEXT'
+        str = c.CommandCreateTable( strTable, strFields )
         #self.assertEqual( str, "DROP TABLE IF EXISTS %s;" % ( strTable )  )
         self.assertIsNotNone( str )
