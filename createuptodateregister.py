@@ -99,6 +99,9 @@ CREATE TABLE %s(%s);
         print( self.CommandCreateTable( "fulldata" ) + "\n", file=sys.stdout )
         print( "INSERT INTO fulldata SELECT * FROM alldata WHERE stat IS NOT 'D';\n", file=sys.stdout )
         print( self.CommandCreateTable( "toremove" ) )
+        print( "INSERT INTO toremove SELECT * FROM alldata WHERE stat IS 'D';", file=sys.stdout )
+        print( "ALTER TABLE toremove ADD COLUMN toremove;", file=sys.stdout )
+        print( "UPDATE toremove SET toremove = 'toremove';\n", file=sys.stdout )
         # Joe's good stuff goes here
 
 if( __name__ == "__main__" ):
