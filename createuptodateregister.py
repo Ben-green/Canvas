@@ -96,6 +96,7 @@ CREATE TABLE %s(%s);
         for ward in self.Wards( 29 ):
             print( "INSERT INTO alldata SELECT * FROM %s;" % ( ward ), file=sys.stdout )
         print( "\n", file=sys.stdout )
+        print( self.CommandCreateTable( "fulldata" ) + "\n", file=sys.stdout )
         # Joe's good stuff goes here
 
 if( __name__ == "__main__" ):
