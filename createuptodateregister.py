@@ -53,10 +53,13 @@ class createuptodateregister( object ):
             yield "ward%02d" % ( i )
             i += 1
 
+    def CommandDropTable( self, strTable ):
+            return "DROP TABLE IF EXISTS %s;" % ( strTable )
+
     # FIXME Make this a static method?
     def CreateUpToDateRegister( self, inDatabase ):
         for ward in self.Wards( 29 ):
-            print( "DROP TABLE IF EXISTS %s;" % ( ward ), file=sys.stdout )
+            print( self.CommandDropTable( ward ), file=sys.stdout )
         print( "\n.mode csv", file=sys.stdout )
         for i,strWard in enumerate( self.ListOfWards( ) ):
             print( ".import P141201_%s.csv ward%02d" % ( strWard, i + 1 ), file=sys.stdout )
