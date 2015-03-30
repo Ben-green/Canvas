@@ -97,6 +97,7 @@ CREATE TABLE %s(%s);
             print( "INSERT INTO alldata SELECT * FROM %s;" % ( ward ), file=sys.stdout )
         print( "\n", file=sys.stdout )
         print( self.CommandCreateTable( "fulldata" ) + "\n", file=sys.stdout )
+        print( "INSERT INTO fulldata SELECT * FROM alldata WHERE stat IS NOT 'D';\n", file=sys.stdout )
         # Joe's good stuff goes here
 
 if( __name__ == "__main__" ):
