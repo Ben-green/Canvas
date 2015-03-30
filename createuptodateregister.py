@@ -76,13 +76,13 @@ class createuptodateregister( object ):
             yield "ward%02d" % ( i )
             i += 1
 
-    def CommandDropTable( self, strTable ):
-        return "DROP TABLE IF EXISTS %s;" % ( strTable )
+    def CommandDropTable( self, inTable ):
+        return "DROP TABLE IF EXISTS %s;" % ( inTable )
 
-    def CommandCreateTable( self, strTable ):
+    def CommandCreateTable( self, inTable ):
         return """%s
 CREATE TABLE %s(%s);
-""" % ( self.CommandDropTable( strTable ), strTable, strFields )
+""" % ( self.CommandDropTable( inTable ), inTable, strFields )
 
     # FIXME Make this a static method?
     def CreateUpToDateRegister( self, inDatabase ):
