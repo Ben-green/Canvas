@@ -10,6 +10,29 @@ __copyright__   = "Copyright 2015, The Green Party UK"
 
 import sys
 
+# DRY Where do these data really belong
+strFields = '''
+  "pd" TEXT,
+  "eno" TEXT,
+  "stat" TEXT,
+  "title" TEXT,
+  "firstname" TEXT,
+  "initials" TEXT,
+  "surname" TEXT,
+  "suffix" TEXT,
+  "dateofattainment" TEXT,
+  "franchiseflag" TEXT,
+  "address1" TEXT,
+  "address2" TEXT,
+  "address3" TEXT,
+  "address4" TEXT,
+  "address5" TEXT,
+  "address6" TEXT,
+  "address7" TEXT,
+  "optout" TEXT,
+  "postcode" TEXT
+'''
+
 listWards = [
         "Adel_and_Wharfedale",
         "Alwoodley",
