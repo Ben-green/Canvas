@@ -8,22 +8,31 @@ import sqlite3
 import importcsvfile
 from sys import argv
 
-# This has a go at using specified csv files as existing up to date council data, and another as the existing canvassing records, to 
-# create a new file which is up to date. If you want to change the existing data it uses, this must be done by changing the script. It 
-# will ask what you want the database file you are using to be called
+# This has a go at using specified csv files as existing up to date council
+# data, and another as the existing canvassing records, to create a new file
+# which is up to date. If you want to change the existing data it uses, this
+# must be done by changing the script. It will ask what you want the database
+# file you are using to be called
 
+# DRY
 print """This has a go at using specified csv files as existing uptodate council data, and another as the existing canvassing records, to create a new file which is up to date. If you want to change the existing data it uses, this must be done by changing the script."""
 
-# List of the different files of council data to be used, change this list to change the data that is used, as instructed in STEP 2.
+# DRY
+# List of the different files of council data to be used, change this list to
+# change the data that is used, as instructed in STEP 2.
 listcouncildata = [
         "councilbig.csv",
         "councildata.csv"
         ]
 
-# Name of the .db file used to store this new data, change this if you want as instructed in STEP 2.
+# DRY
+# Name of the .db file used to store this new data, change this if you want as
+# instructed in STEP 2.
 databaseused = "canvas2016.db"
 
-# Name of the .csv file that contains existing data, change this if you want as instructed in STEP 2.
+# DRY
+# Name of the .csv file that contains existing data, change this if you want as
+#instructed in STEP 2.
 existingcanvas = "old.csv"
 
 print listcouncildata
@@ -130,7 +139,9 @@ with sqlite3.connect( databaseused ) as conn:
     cursor.execute( tobedone )
     conn.commit()
 
-# creating table councilremovedupdated which now has the remove column populated with remove if someone should be removed
+# DRY
+# creating table councilremovedupdated which now has the remove column populated
+# with remove if someone should be removed
 
 print "creating table councilremovedupdated which now has the remove column populated with remove if someone should be removed"
 with sqlite3.connect( databaseused ) as conn:
@@ -231,12 +242,16 @@ with sqlite3.connect( databaseused ) as conn:
     cursor.execute( tobedone )
     conn.commit()
 
-# At this point in the old SQL script, the street name field would now be added in. This feature is a little redundant now 
-# as we need to work off postcodes, and something to be fixed
+# DRY
+# At this point in the old SQL script, the street name field would now be added
+# in. This feature is a little redundant now as we need to work off postcodes,
+# and something to be fixed
 
 print "At this point in the old SQL script, the street name field would now be added in. This feature is a little redundant now as we need to work off postcodes, and something to be fixed"
 
-# We now have a table within the database called councilupdated, which is the current electoral register with all updates taken into account
+# DRY
+# We now have a table within the database called councilupdated, which is the
+# current electoral register with all updates taken into account
 print "We now have a table within the database called councilupdated, which is the current electoral register with all updates taken into account"
 
 
@@ -296,7 +311,9 @@ listoldcommands = [
 "update '%s' set priorres = 'yes';" % (existingcanvas) 
         ]
 
-# This should add new columns if needed and update the person as a # prior resident. Currently not working as issue 37
+# DRY
+# This should add new columns if needed and update the person as a prior resident.
+# Currently not working as issue 37
 
 #for bit in listoldcommands:
 #    with sqlite3.connect( databaseused ) as conn:
